@@ -4,7 +4,6 @@ import pytest
 
 from universal_mcp_github.app import GithubApp
 
-
 @pytest.fixture
 def app_instance():
     """Provides a GithubApp instance for tests."""
