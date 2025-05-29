@@ -13108,7 +13108,7 @@ class GithubApp(APIApplication):
         except ValueError:
             return None
 
-    def get_discussion_comments(self, org: str, team_slug: str, discussion_number: str, direction: Optional[str] = None, per_page: Optional[int] = None, page: Optional[int] = None) -> list[Any]:
+    def get_discussion_comments_org(self, org: str, team_slug: str, discussion_number: str, direction: Optional[str] = None, per_page: Optional[int] = None, page: Optional[int] = None) -> list[Any]:
         """
         Retrieves comments from a specific team discussion in a GitHub organization.
 
@@ -38922,7 +38922,7 @@ class GithubApp(APIApplication):
             self.teams_get_discussion_in_org,
             self.teams_update_discussion_in_org,
             self.teams_delete_discussion_in_org,
-            self.get_discussion_comments,
+            self.get_discussion_comments_org,
             self.create_comment,
             self.get_comment_details,
             self.update_comment,
