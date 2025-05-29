@@ -372,7 +372,7 @@ This is automatically generated from OpenAPI schema for the GithubApp API.
 | `teams_get_discussion_in_org` | Retrieves a specific GitHub team discussion by organization, team slug, and discussion number, using the "GET" method. |
 | `teams_update_discussion_in_org` | Edits a GitHub team discussion post using the specified organization, team, and discussion details, updating its title and body text through the `PATCH` method. |
 | `teams_delete_discussion_in_org` | Deletes a GitHub team discussion using the specified organization, team, and discussion number, returning a "204 No Content" status upon successful deletion. |
-| `get_discussion_comments` | Retrieves a paginated list of comments for a specific team discussion via the GitHub API. |
+| `get_discussion_comments_org` | Retrieves comments from a specific team discussion in a GitHub organization. |
 | `create_comment` | Creates a new comment on a team discussion post in a GitHub organization. |
 | `get_comment_details` | Retrieves a specific comment from a team discussion in a GitHub organization using the GitHub API. |
 | `update_comment` | Updates a specific comment on a team discussion post within a GitHub organization using the GitHub API. |
