@@ -412,30 +412,6 @@ class GithubApp(APIApplication):
         response.raise_for_status()
         return response.json()
 
-    def meta_root(self) -> dict[str, Any]:
-        """
-        Retrieves data or information from the root resource using the "GET" method at the path "/".
-
-        Returns:
-            dict[str, Any]: Response
-
-        Raises:
-            HTTPError: Raised when the API request fails (e.g., non-2XX status code).
-            JSONDecodeError: Raised if the response body cannot be parsed as JSON.
-
-        Tags:
-            meta
-        """
-        url = f"{self.base_url}/"
-        query_params = {}
-        response = self._get(url, params=query_params)
-        response.raise_for_status()
-        if response.status_code == 204 or not response.content or not response.text.strip():
-            return None
-        try:
-            return response.json()
-        except ValueError:
-            return None
 
     def list_advisories(self, ghsa_id: Optional[str] = None, type: Optional[str] = None, cve_id: Optional[str] = None, ecosystem: Optional[str] = None, severity: Optional[str] = None, cwes: Optional[Any] = None, is_withdrawn: Optional[bool] = None, affects: Optional[Any] = None, published: Optional[str] = None, updated: Optional[str] = None, modified: Optional[str] = None, epss_percentage: Optional[str] = None, epss_percentile: Optional[str] = None, before: Optional[str] = None, after: Optional[str] = None, direction: Optional[str] = None, per_page: Optional[int] = None, sort: Optional[str] = None) -> list[Any]:
         """
@@ -38312,101 +38288,6 @@ class GithubApp(APIApplication):
         except ValueError:
             return None
 
-    def get_shared_storage_settings(self, username: str) -> dict[str, Any]:
-        """
-        Retrieves a user's shared storage billing settings for the specified username.
-
-        Args:
-            username (string): username
-
-        Returns:
-            dict[str, Any]: Response
-
-        Raises:
-            HTTPError: Raised when the API request fails (e.g., non-2XX status code).
-            JSONDecodeError: Raised if the response body cannot be parsed as JSON.
-
-        Tags:
-            billing
-        """
-        if username is None:
-            raise ValueError("Missing required parameter 'username'.")
-        url = f"{self.base_url}/users/{username}/settings/billing/shared-storage"
-        query_params = {}
-        response = self._get(url, params=query_params)
-        response.raise_for_status()
-        if response.status_code == 204 or not response.content or not response.text.strip():
-            return None
-        try:
-            return response.json()
-        except ValueError:
-            return None
-
-    def get_billing_usage(self, username: str, year: Optional[int] = None, month: Optional[int] = None, day: Optional[int] = None, hour: Optional[int] = None) -> dict[str, Any]:
-        """
-        Retrieves billing usage details for a specified user with parameters for year, month, day, and hour.
-
-        Args:
-            username (string): username
-            year (integer): If specified, only return results for a single year. The value of `year` is an integer with four digits representing a year. For example, `2025`. Default value is the current year.
-            month (integer): If specified, only return results for a single month. The value of `month` is an integer between `1` and `12`. If no year is specified the default `year` is used.
-            day (integer): If specified, only return results for a single day. The value of `day` is an integer between `1` and `31`. If no `year` or `month` is specified, the default `year` and `month` are used.
-            hour (integer): If specified, only return results for a single hour. The value of `hour` is an integer between `0` and `23`. If no `year`, `month`, or `day` is specified, the default `year`, `month`, and `day` are used.
-
-        Returns:
-            dict[str, Any]: Response when getting a billing usage report
-
-        Raises:
-            HTTPError: Raised when the API request fails (e.g., non-2XX status code).
-            JSONDecodeError: Raised if the response body cannot be parsed as JSON.
-
-        Tags:
-            billing
-        """
-        if username is None:
-            raise ValueError("Missing required parameter 'username'.")
-        url = f"{self.base_url}/users/{username}/settings/billing/usage"
-        query_params = {k: v for k, v in [('year', year), ('month', month), ('day', day), ('hour', hour)] if v is not None}
-        response = self._get(url, params=query_params)
-        response.raise_for_status()
-        if response.status_code == 204 or not response.content or not response.text.strip():
-            return None
-        try:
-            return response.json()
-        except ValueError:
-            return None
-
-    def get_social_accounts_by_user(self, username: str, per_page: Optional[int] = None, page: Optional[int] = None) -> list[Any]:
-        """
-        Retrieves a list of social accounts for a specific user using the "GET" method, allowing pagination through optional per-page and page parameters.
-
-        Args:
-            username (string): username
-            per_page (integer): The number of results per page (max 100). For more information, see "[Using pagination in the REST API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the-rest-api)."
-            page (integer): The page number of the results to fetch. For more information, see "[Using pagination in the REST API](https://docs.github.com/rest/using-the-rest-api/using-pagination-in-the-rest-api)."
-
-        Returns:
-            list[Any]: Response
-
-        Raises:
-            HTTPError: Raised when the API request fails (e.g., non-2XX status code).
-            JSONDecodeError: Raised if the response body cannot be parsed as JSON.
-
-        Tags:
-            users
-        """
-        if username is None:
-            raise ValueError("Missing required parameter 'username'.")
-        url = f"{self.base_url}/users/{username}/social_accounts"
-        query_params = {k: v for k, v in [('per_page', per_page), ('page', page)] if v is not None}
-        response = self._get(url, params=query_params)
-        response.raise_for_status()
-        if response.status_code == 204 or not response.content or not response.text.strip():
-            return None
-        try:
-            return response.json()
-        except ValueError:
-            return None
 
     def list_user_ssh_signing_keys(self, username: str, per_page: Optional[int] = None, page: Optional[int] = None) -> list[Any]:
         """
@@ -38506,56 +38387,8 @@ class GithubApp(APIApplication):
         except ValueError:
             return None
 
-    def meta_get_all_versions(self) -> list[Any]:
-        """
-        Retrieves a list of available versions supported by the API.
 
-        Returns:
-            list[Any]: Response
-
-        Raises:
-            HTTPError: Raised when the API request fails (e.g., non-2XX status code).
-            JSONDecodeError: Raised if the response body cannot be parsed as JSON.
-
-        Tags:
-            meta
-        """
-        url = f"{self.base_url}/versions"
-        query_params = {}
-        response = self._get(url, params=query_params)
-        response.raise_for_status()
-        if response.status_code == 204 or not response.content or not response.text.strip():
-            return None
-        try:
-            return response.json()
-        except ValueError:
-            return None
-
-    def meta_get_zen(self) -> Any:
-        """
-        Retrieves data at the "/zen" path using the "GET" method.
-
-        Returns:
-            Any: Response
-
-        Raises:
-            HTTPError: Raised when the API request fails (e.g., non-2XX status code).
-            JSONDecodeError: Raised if the response body cannot be parsed as JSON.
-
-        Tags:
-            meta
-        """
-        url = f"{self.base_url}/zen"
-        query_params = {}
-        response = self._get(url, params=query_params)
-        response.raise_for_status()
-        if response.status_code == 204 or not response.content or not response.text.strip():
-            return None
-        try:
-            return response.json()
-        except ValueError:
-            return None
-
+ 
     def list_tools(self):
         return [
             self.star_repository,
@@ -39589,12 +39422,8 @@ class GithubApp(APIApplication):
             self.repos_list_for_user,
             self.get_billing_actions_by_user,
             self.get_user_billing_packages,
-            self.get_shared_storage_settings,
-            self.get_billing_usage,
-            self.get_social_accounts_by_user,
             self.list_user_ssh_signing_keys,
             self.get_user_starred_repositories,
             self.list_user_subscriptions,
-            self.meta_get_all_versions,
-            self.meta_get_zen
+       n
         ]
